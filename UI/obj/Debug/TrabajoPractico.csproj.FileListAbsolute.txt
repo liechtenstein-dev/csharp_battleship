@@ -1,0 +1,10 @@
+F:\src\TrabajoPractico\bin\Debug\TrabajoPractico.exe.config
+F:\src\TrabajoPractico\bin\Debug\TrabajoPractico.exe
+F:\src\TrabajoPractico\bin\Debug\TrabajoPractico.pdb
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.csproj.AssemblyReference.cache
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.Form1.resources
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.Properties.Resources.resources
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.csproj.GenerateResource.cache
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.csproj.CoreCompileInputs.cache
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.exe
+F:\src\TrabajoPractico\obj\Debug\TrabajoPractico.pdb
