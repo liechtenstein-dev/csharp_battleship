@@ -1,6 +1,0 @@
-F:\src\DAL\bin\Debug\DAL.dll
-F:\src\DAL\bin\Debug\DAL.pdb
-F:\src\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
-F:\src\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
-F:\src\DAL\obj\Debug\DAL.dll
-F:\src\DAL\obj\Debug\DAL.pdb

@@ -1,7 +1,0 @@
-F:\src\SOCKETMNG\obj\Debug\SOCKETMNG.csproj.AssemblyReference.cache
-F:\src\SOCKETMNG\obj\Debug\SOCKETMNG.csproj.CoreCompileInputs.cache
-F:\src\SOCKETMNG\bin\Debug\SOCKETMNG.exe.config
-F:\src\SOCKETMNG\bin\Debug\SOCKETMNG.exe
-F:\src\SOCKETMNG\bin\Debug\SOCKETMNG.pdb
-F:\src\SOCKETMNG\obj\Debug\SOCKETMNG.exe
-F:\src\SOCKETMNG\obj\Debug\SOCKETMNG.pdb

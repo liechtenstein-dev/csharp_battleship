@@ -1,9 +1,0 @@
-F:\src\BLL\bin\Debug\BLL.dll
-F:\src\BLL\bin\Debug\BLL.pdb
-F:\src\BLL\bin\Debug\DAL.dll
-F:\src\BLL\bin\Debug\DAL.pdb
-F:\src\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
-F:\src\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
-F:\src\BLL\obj\Debug\BLL.csproj.CopyComplete
-F:\src\BLL\obj\Debug\BLL.dll
-F:\src\BLL\obj\Debug\BLL.pdb
