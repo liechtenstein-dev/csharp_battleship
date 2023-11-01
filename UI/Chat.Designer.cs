@@ -30,9 +30,9 @@
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -51,16 +51,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Mensaje";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.richTextBox1.Location = new System.Drawing.Point(109, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(663, 341);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
-            // 
             // listView1
             // 
             this.listView1.HideSelection = false;
@@ -78,6 +68,16 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Enviar";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.richTextBox1.Location = new System.Drawing.Point(109, 12);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(663, 341);
+            this.richTextBox1.TabIndex = 2;
+            this.richTextBox1.Text = "";
             // 
             // Chat
             // 
@@ -100,8 +100,8 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

@@ -87,5 +87,12 @@ namespace TrabajoPractico
         {
             scktCliente.StartClient("textofeog<EOF><EOG>");
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var fj = new FormJuego();
+            fj.Show();
+        }
     }
 }
