@@ -44,7 +44,6 @@ F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\TrabajoPractico.Chat.resources
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\TrabajoPractico.Form1.resources
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\TrabajoPractico.Properties.Resources.resources
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\TrabajoPractico.Sala.resources
-F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\TrabajoPractico.UserControl1.resources
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\UI.csproj.GenerateResource.cache
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
 F:\uni_code\BSN\csharp_battleship\UI\obj\Debug\UI.csproj.CopyComplete

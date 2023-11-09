@@ -1,76 +1,110 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TrabajoPractico.TCPConnections
 {
     internal class SocketServer
     {
-        Queue<string> lastHitPlayed; Socket serverSocket; 
-        bool played;  string clientResponse;
+        private Queue<string> lastHitPlayed; 
+        private bool played;
+        private int puerto = 3080;
+        private Socket socketEscucha;
+        private string clientResponse;
 
-        public static void StartServer()
+        public void init_server()
         {
-            string data;
-            IPHostEntry host = Dns.GetHostEntry("localhost");
-            IPAddress ipAddress = host.AddressList[0];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
+            Console.WriteLine("Server init");
+            IPEndPoint ie = new IPEndPoint(IPAddress.Any, puerto);
+            
+            
+            socketEscucha = new Socket(AddressFamily.InterNetwork,
+                SocketType.Stream,
+                ProtocolType.Tcp); 
+            socketEscucha.Bind(ie); 
+            socketEscucha.Listen(5);
+            Console.WriteLine("waiting for connections in port:{0}", puerto);
+            
             try
             {
-                using (Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+                while (true)
                 {
-                    listener.Bind(localEndPoint);
-                    listener.Listen(10);
-                    Console.WriteLine("Waiting for a connection...");
-
-                    while (true)
-                    {
-                        using (Socket handler = listener.Accept())
-                        {
-                            data = null;
-                            byte[] bytes = new byte[1024];
-
-                            while (true)
-                            {
-                                int bytesRec = handler.Receive(bytes);
-                                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                                if (data.IndexOf("<EOF>") > -1)
-                                {
-                                    break;
-                                }
-                            }
-
-                            Console.WriteLine("Text received : {0}", data);
-                        }
-
-                        if( data.Contains("<EOG>"))
-                        {
-                            break;
-                        }
-                    }
+                    Socket socketCliente = socketEscucha.Accept();
+                    Thread hiloCliente = new Thread(atend_client_connection);
+                    hiloCliente.IsBackground = true;
+                    Console.WriteLine("Socket is here and attend connection");
+                    hiloCliente.Start(socketCliente);
                 }
             }
-            catch (Exception e)
+            catch (SocketException)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("Connections finalized");
             }
+
         }
-
-        // private string FirstPlayed()
-        // {
-        //     return ListeningConnections();
-        // }
-
-        private void AdvertiseStateSet()
+        
+        public void atend_client_connection(object o)
         {
-            // TODO Should say if it is firsplayed, if indeed is first played
-            // the player should send the hitposition
-            //serverSocket.Send();
+            string mensaje;
+            Boolean clienteActivo = true;
+            Socket cliente = (Socket)o;
+            IPEndPoint ieCliente = (IPEndPoint)cliente.RemoteEndPoint;
+
+            Console.WriteLine("Connect socket address: {0} in the port:{1}",
+                ieCliente.Address, ieCliente.Port);
+
+            NetworkStream ns = new NetworkStream(cliente);
+            StreamReader sr = new StreamReader(ns);
+            StreamWriter sw = new StreamWriter(ns);
+
+            sw.WriteLine("Socket into server");
+            sw.Flush();
+
+            while (clienteActivo)
+            {
+                // Recibe mensaje del cliente
+                mensaje = sr.ReadLine();
+
+                //Se recibe null si se cierra el cliente de golpe
+                if (mensaje == null)
+                {
+                    clienteActivo = false;
+                    break;
+                }
+
+                // Gestion del protocolo
+                switch (mensaje)
+                {
+                    case "#salir":
+                        clienteActivo = false;
+                        break;
+                    case "#apagar":
+                        clienteActivo = false;
+                        break;
+                    default:
+                        sw.WriteLine(mensaje);
+                        sw.Flush();
+                        break;
+                }
+
+                Console.WriteLine("{0} says: {1}",
+                    ieCliente.Address, mensaje);
+            }
+
+            Console.WriteLine("Connection finalized with {0}:{1}",
+                ieCliente.Address, ieCliente.Port);
+
+            sw.Close();
+            sr.Close();
+            ns.Close();
+            cliente.Close();
         }
+        
     }
 }

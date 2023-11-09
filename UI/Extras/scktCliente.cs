@@ -1,46 +1,34 @@
 ﻿using System;
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Net.Sockets;
 
 namespace TrabajoPractico
 {
     internal class scktCliente
     {
-        public static void StartClient(string sendmsg){
-            byte[] bytes = new byte[1024];
+        public static void StartClient(string msjjugada = @"hola server amigoooo, #salir"){
+       
+            string serverIP = "127.0.0.1";
+            int serverPort = 3080;
             try
             {
-                IPHostEntry host = Dns.GetHostEntry("localhost");
-                IPAddress ipAddress = host.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
-                Socket sender = new Socket(ipAddress.AddressFamily,
-                    SocketType.Stream, ProtocolType.Tcp);
-                try
-                {
-                    sender.Connect(remoteEP);
-                    Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
-                    
-                    byte[] msg = Encoding.ASCII.GetBytes(sendmsg);
-                    int bytesSent = sender.Send(msg);
-                    int bytesRec = sender.Receive(bytes);
-                    Console.WriteLine("Echoed test = {0}", Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Unexpected exception : {0}", e.ToString());
-                }
-
+                IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
+                Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                clientSocket.Connect(serverEndPoint);
+                NetworkStream networkStream = new NetworkStream(clientSocket);
+                StreamReader reader = new StreamReader(networkStream);
+                StreamWriter writer = new StreamWriter(networkStream);
+                
+                writer.WriteLine(msjjugada);
+                writer.Flush();
+                string serverResponse = reader.ReadLine();
+                Console.WriteLine("Servidor dice: " + serverResponse);
+                clientSocket.Close();
             }
-            catch (Exception e)
+            catch (SocketException ex)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("Error de socket: " + ex.Message);
             }
         }
     }

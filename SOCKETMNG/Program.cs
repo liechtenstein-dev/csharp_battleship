@@ -11,7 +11,8 @@ namespace SOCKETMNG
     {
         static void Main(string[] args)
         {
-           SocketServer.StartServer();
+            SocketServer server = new SocketServer();
+            server.init_server();
         }
     }
 }

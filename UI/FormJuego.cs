@@ -14,6 +14,11 @@ namespace TrabajoPractico
     public partial class FormJuego : Form
     {
         char[,] islands = new char[15,15]; 
+        int[] pos;
+        int selected_ship;
+        int selected_ship_arrays;
+        int[] availableMoves = new int[5] { 5, 4, 3, 2 , 1};
+        int[] posibleMoves = new int[5] { 5, 4, 3, 2, 1 };
         Dictionary<int, Color> type_ships_color = new Dictionary<int, Color>()
         {
             {1, Color.Crimson },
@@ -27,11 +32,6 @@ namespace TrabajoPractico
         {
         };
         public static event EventHandler<EventCellOutter> BarcoSeleccionado;
-        int[] pos;
-        int selected_ship;
-        int selected_ship_arrays;
-        int[] availableMoves = new int[5] { 5, 4, 3, 2 , 1};
-        int[] posibleMoves = new int[5] { 5, 4, 3, 2, 1 };
         Point? GetRowColIndex(TableLayoutPanel tlp, Point point)
         {
             if (point.X > tlp.Width || point.Y > tlp.Height)
