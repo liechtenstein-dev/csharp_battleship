@@ -16,6 +16,10 @@ namespace TrabajoPractico
         char[,] islands = new char[15,15]; 
         int[] pos;
         int selected_ship;
+        
+        Timer timer;
+        Point coord;
+
         int selected_ship_arrays;
         int[] availableMoves = new int[5] { 5, 4, 3, 2 , 1};
         int[] posibleMoves = new int[5] { 5, 4, 3, 2, 1 };
@@ -64,6 +68,7 @@ namespace TrabajoPractico
             if (selected_ship_arrays < 0 || selected_ship_arrays > 5)
                 throw new Exception("Something went wrong");
             availableMoves[selected_ship_arrays]--;
+            Console.WriteLine(pos[0]+(pos[1] * 16));
             type_ships_moves.Add(pos[0]+(pos[1]*16), selected_ship);
             control.BackColor = type_ships_color[selected_ship];
         }
@@ -71,6 +76,8 @@ namespace TrabajoPractico
         {
             InitializeComponent();
             this.tableLayoutPanel1.BackColor = Color.Gray;
+            timer = new Timer { Interval = 1000 };
+            timer.Tick += OnTick;
             this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.OutsetDouble;
             this.comboBox1.DataSource = new int[] { 1, 2, 3, 4, 5 };
            
@@ -82,6 +89,14 @@ namespace TrabajoPractico
                 }
             }
         }
+
+        private void OnTick(object sender, EventArgs arg)
+        {
+            timer.Stop();
+            coord = Cursor.Position;
+            Console.WriteLine("Cordenads + delta de tiempo: " + coord);
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             selected_ship = int.Parse(comboBox1.SelectedItem.ToString());
@@ -175,8 +190,15 @@ namespace TrabajoPractico
 
         private void tableLayoutPanel1_Click(object sender, EventArgs e)
         {
+            this.Activate();
+            timer.Start();
             // Obtener la posición de la celda correspondiente al clic
-            Point? cellPos = GetRowColIndex(this.tableLayoutPanel1, tableLayoutPanel1.PointToClient(Cursor.Position));
+            // Console.WriteLine(Cursor.Position);
+            // Console.WriteLine(new Point(((MouseEventArgs)e).X, ((MouseEventArgs)e).Y).ToString());
+            Console.WriteLine(coord);
+
+
+            Point? cellPos = GetRowColIndex(this.tableLayoutPanel1, tableLayoutPanel1.PointToClient(Cursor.Current.HotSpot));
             
             if (cellPos.HasValue && LegalMove())
             {

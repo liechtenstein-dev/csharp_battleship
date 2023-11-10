@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,49 @@ using System.Threading.Tasks;
 
 namespace TrabajoPractico.TCPConnections
 {
+	internal class ParserXMLRegister {
+			
+			// you are not supposed to use this DataSet out of class base imp
+			// in which you inherit ParserXML and that base class uses this 
+			private protected DataSet ds;
+            string xml_location;
+
+			public ParserXMLRegister(string xml_location){
+				// todo: check if this location is the correct one should be
+				// SOLUTION DIR: /UTILS/GameReg/ <-
+				this.xml_location = xml_location;
+			}
+
+			public void Read(){
+			}
+
+			public void Write(){}
+
+	}
+
+	internal class GameRecord{}
+
+	
+	internal class MapperMoves {
+	
+		string Move;
+
+
+
+		public MapperMoves(string movesended){
+			
+			if(movesended.Length == 0)
+				throw new Exception("CLIENT MESSAGE EMPTY!");
+			
+			// MAX LENGTH IS 235
+			if(movesended.Length > 235)
+				throw new Exception(@"Island is not correctly created, there are less than expected '(229)' ${movesended.Lenght()}.");
+			
+			this.Move = movesended;
+		}
+
+	}
+
     internal class SocketServer
     {
         private Queue<string> lastHitPlayed; 
