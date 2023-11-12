@@ -78,14 +78,29 @@ namespace TrabajoPractico
             u.RegistrarUsuario();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_ClickAsync(object sender, EventArgs e)
         {
-            scktCliente.StartClient("textofeof<EOF>");
+            try
+            {
+                await SocketCliente.StartClientAsync("0000#C[255]");
+                Console.WriteLine(SocketCliente.response);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
-            scktCliente.StartClient("textofeog<EOF><EOG>");
+            try
+            {
+                await SocketCliente.StartClientAsync("0000#E[255]");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)

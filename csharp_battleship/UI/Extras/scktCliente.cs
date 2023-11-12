@@ -2,34 +2,47 @@
 using System.Net;
 using System.IO;
 using System.Net.Sockets;
+using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace TrabajoPractico
 {
-    internal class scktCliente
+    internal class SocketCliente
     {
-        public static void StartClient(string msjjugada = @"hola server amigoooo, #salir"){
-       
-            string serverIP = "127.0.0.1";
-            int serverPort = 3080;
+        public static string response;
+
+        public static async Task StartClientAsync(string msjjugada = @"0000#E[00]")
+        {
+            string serverIp = "127.0.0.1";
+            int serverPort = 5050;
             try
             {
-                IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
-                Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                clientSocket.Connect(serverEndPoint);
-                NetworkStream networkStream = new NetworkStream(clientSocket);
-                StreamReader reader = new StreamReader(networkStream);
-                StreamWriter writer = new StreamWriter(networkStream);
-                
-                writer.WriteLine(msjjugada);
-                writer.Flush();
-                string serverResponse = reader.ReadLine();
-                Console.WriteLine("Actualize Play: " + serverResponse);
-                clientSocket.Close();
+                TcpClient tcpClient = new TcpClient();
+                await tcpClient.ConnectAsync(serverIp, serverPort);
+                await SocketCliente.SendDataAsync(tcpClient, msjjugada);
+                string response = await SocketCliente.ReceiveDataAsync(tcpClient);
+                SocketCliente.response = response;
+                MessageBox.Show("Respuesta del servidor: " + response, "Respuesta", MessageBoxButtons.OK);
             }
-            catch (SocketException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error de socket: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        public static async Task SendDataAsync(TcpClient client, string data)
+        {
+            NetworkStream stream = client.GetStream();
+            byte[] buffer = Encoding.UTF8.GetBytes(data);
+            await stream.WriteAsync(buffer, 0, buffer.Length);
+        }
+
+        public static async Task<string> ReceiveDataAsync(TcpClient client)
+        {
+            NetworkStream stream = client.GetStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+            return Encoding.UTF8.GetString(buffer, 0, bytesRead);
         }
     }
 }

@@ -42,8 +42,11 @@ class SocketServer:
     try:
       while True:
         data = (connection.recv(1024)).decode('utf-8')
-      
+        data = data.strip()
         if len(data) != 11:
+          for char in data:
+            print(ord(char))
+          print(f"data: {data} len: {len(data)}")
           raise Exception("Se envio un mensaje con un numero invalido de caracteres")
           break
         
@@ -61,6 +64,7 @@ class SocketServer:
         else:
           b.decode_position()
           print(f"Move played: {pos}, Action {actid}")
+          connection.sendall((f"Move played: {pos}, Action {actid}").encode("utf-8"))
           
           
         if(b.state_game == True):

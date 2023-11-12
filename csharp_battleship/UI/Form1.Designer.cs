@@ -177,7 +177,7 @@
             this.button4.TabIndex = 8;
             this.button4.Text = "text socket";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.button4_ClickAsync);
             // 
             // button5
             // 
@@ -188,6 +188,7 @@
             this.button5.Text = "text socket";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+
             // 
             // button6
             // 
@@ -219,7 +220,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "s";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
