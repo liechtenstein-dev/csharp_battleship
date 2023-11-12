@@ -1,0 +1,13 @@
+
+
+<GameRecord>
+		<GameID></GameID>
+		<WinnerID></WinnerID>
+	<Player>
+		<PID></PID>
+		<Username></Username>
+		<Move></Move>
+		<PlayerShipPosition></PlayerShipPosition>
+	</Player>
+</GameRecord>
+
