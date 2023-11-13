@@ -1,4 +1,5 @@
-import gamesockets as socket
+import gamesocket
 
-s = socket.SocketClientTest("127.0.0.1", 5050)
-s.senddata("0000#C[255]")
+client = gamesocket.TestClient()
+client.normal_send("0000#C[255]")
+server = gamesocket.ManageServer()
