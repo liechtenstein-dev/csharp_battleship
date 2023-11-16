@@ -1,50 +1,42 @@
-import numpy as np
-
 class Data:
-    def __init__(self, usrid, actid: str, pos):
-        self.usrid = usrid
-        self.actid = actid
-        self.pos = pos
-    def __str__(self):
+    def __init__(self, usrid: str, actid: str, pos: str):
+        self.usrid: str = usrid
+        self.actid: str = actid
+        self.pos: str = pos
+    
+    def __str__(self) -> str:
         return f"Data(usrid={self.usrid}, actid={self.actid}, pos={self.pos})"
 
 class BattleShipLogic:
     def __init__(self):
-        self.state_players: [bool] = [
-            False,
-            False,
-        ]  # si uno de los jugadores se desconecta -> True
-        self.players = []
-        self.players_positions = []
-        self.state_game: bool = False  # si el juego termino -> True
+        self.players_positions: dict[str, list[str]] = {}
+        self.state_game: bool = False
 
-    def add_data(self, data: Data):
-        if (self.players.count(data.usrid) == 0):
-            self.players.append(data.usrid)
-            
-        if (self.players.count(data.usrid) > 2):
-            return "wtf how the fkc"
-        
-        match(data.actid):
-            case "#C":
-                self.players_positions[data.usrid].append(data.pos)
-                return
-            case "#M":
-                try: 
-                    missil = self.get_opposite_player_positions(data.usrid).pop(data.pos)
-                    # if hit causes the array of positions to get empty, its basically a win xd
-                    if(len(self.get_opposite_player_positions(data.usrid)) == 0):
-                        self.state_game = True
-                        return f"{data.usrid}#W[{data.pos}]"
-                    if (missil):
-                        # hit must tell to the server so players do UI thing
-                        return f"{data.usrid}#H[{data.pos}]"
-                except IndexError:
-                    # miss
-                    return f"{data.usrid}#N[{data.pos}]"
+    def decompress_data(self, data: str) -> Data:
+        return Data(data[0:4], data[4:6], data[7:-1])
     
-    def get_opposite_player_positions(self, userid) -> list:
-        for id in self.players_position:
-            if(id != userid):
-                return self.players_position[id]
-
+    def add_data(self, data: str) -> str:
+        data = self.decompress_data(data)
+        
+        if data.usrid not in self.players_positions:
+            self.players_positions[data.usrid] = []
+        
+        if data.actid == "#C" and data.usrid in self.players_positions:
+            self.players_positions[data.usrid].append(data.pos)
+            return "Creating ships"
+        
+        if data.actid == "#M" and data.usrid in self.players_positions:
+            try: 
+                missil = self.get_opposite_player_positions(data.usrid).pop(data.pos)
+                if not self.get_opposite_player_positions(data.usrid):
+                    self.state_game = True
+                    return f"{data.usrid}#W[{data.pos}]"
+                if missil:
+                    return f"{data.usrid}#H[{data.pos}]"
+            except IndexError:
+                return f"{data.usrid}#N[{data.pos}]"
+    
+    def get_opposite_player_positions(self, userid: str) -> list:
+        for id in self.players_positions:
+            if id != userid:
+                return self.players_positions[id]

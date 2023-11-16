@@ -1,59 +1,41 @@
+import threading
 import sockets as sc
-import numpy as np
-from _thread import start_new_thread
 import simulate_matches.simulate_player as sm_player
 
 class SimulateMatches:
   
-  def __init__(self, amount=0) -> None:
-    if (amount >= 999):
-      raise Exception("The maximum amount of matches is 999")
-    for i in range(len(amount)):
-      self.matches = []
-      self.player_one = sm_player.SimulatePlayer(1)
-      self.player_two = sm_player.SimulatePlayer(2)
-      self.matches.append(self.player_one, self.player_two)
-    self.thread_matches.append(self.matches) 
+  def __init__(self, amount=1):
+    if amount >= 999:
+      raise Exception("La cantidad máxima de partidas es 999")
+    self.thread_matches = []  
+    self.matches = []
     self.positions_winn = []
 
-  def remove(self, match):
-    for index, item in enumerate(self.thread_matches):
-      if (match == self.thread_matches[index]):
-        self.thread_matches.remove(match)
-        return
-      
+    for i in range(amount):
+      player_one = sm_player.SimulatePlayer(i)
+      player_two = sm_player.SimulatePlayer(i+1)
+      self.matches.append([player_one, player_two])
+
+  def simulate_game(self, player_one, player_two):
+    islands = [player_one.create_island(), player_two.create_island()]
+
+    for i, player in enumerate([player_one, player_two]):
+      threading.Thread(target=self.simulate_player_moves, args=(player, islands[i])).start()
+
   def start_simulation(self):
-    print("Starting simulation....\n")
-    for index, item in enumerate(self.matches):
-      print(f"Playing {index} game")
-      start_new_thread(self.matches[index].simulate_game, (self.matches[index].player_one, self.player_two))
-    return
+    print("Iniciando simulación...\n")
+    for index, match in enumerate(self.matches):
+      print(f"Jugando el juego {index}")
+      self.simulate_game(match[0], match[1])
 
-  def simulate_game(self, player_one: sm_player.SimulatePlayer, player_two: sm_player.SimulatePlayer):
-    # create phase for both players 
-    islands = []
-    players = []
-    for i in players.append(player_one, player_two):
-      islands.append(i.create_island())
-    
-    for i in range(len(players)):
-      # creating 2 threads into each match for each player
-      start_new_thread(self.simulate_player_moves, players[i], islands[i])
-
-
-  def simulate_player_moves(self, player: sm_player.SimulatePlayer, position_island: list):
+  def simulate_player_moves(self, player, position_island):
     sock = sc.TestClient()
-    # yeah i think i need to improve naming
     ships_generated_pos = player.create_phase()    
     for command in ships_generated_pos:
-     _ = sock.normal_send(command)
-    # end of the creation phase
-    
-    # hit phase
+      _ = sock.normal_send(command)
+
     for x in range(len(player.arr_random_positions)):
-      response:str = sock.normal_send(player.hit_phase())  
-      # if i win i stop sending
-      if(response[4:6] == "#W"):
+      response = sock.normal_send(player.hit_phase())  
+      if response[4:6] == "#W":
         self.positions_winn.append(response[7:-1])
         break
-    

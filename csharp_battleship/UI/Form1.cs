@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoPractico.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TrabajoPractico
@@ -20,14 +21,12 @@ namespace TrabajoPractico
             InitializeComponent();
             this.Name = "Login";
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             this.textBox3.Hide();
             this.label4.Hide();
             this.button3.Hide();
         }
-
         private bool VerificarButton_Click()
         {
             string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
@@ -45,8 +44,6 @@ namespace TrabajoPractico
                 return false;
             }
         }
-
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (!VerificarButton_Click())
@@ -60,7 +57,6 @@ namespace TrabajoPractico
             var newF = new Sala();
             newF.Show();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.label4.Show();
@@ -77,36 +73,10 @@ namespace TrabajoPractico
             var u = new UsuarioBLL(textBox1.Text, textBox2.Text);
             u.RegistrarUsuario();
         }
-
-        private async void button4_ClickAsync(object sender, EventArgs e)
-        {
-            try
-            {
-                await SocketCliente.StartClientAsync("0000#C[255]");
-                Console.WriteLine(SocketCliente.response);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async void button5_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                await SocketCliente.StartClientAsync("0000#E[255]");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void button6_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var fj = new FormJuego();
+            var fj = new Forms.BattleGameForm();
             fj.Show();
         }
     }

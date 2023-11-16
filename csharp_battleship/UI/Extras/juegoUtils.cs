@@ -25,5 +25,4 @@ namespace TrabajoPractico.Extras
             this.barcoID = barcoID;
         }
     }
-
 }

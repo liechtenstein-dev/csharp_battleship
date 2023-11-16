@@ -52,10 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chat.cs">
+    <Compile Include="Forms\BattleGames\BattleGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Chat.Designer.cs">
+    <Compile Include="Forms\BattleGames\BattleGame.Designer.cs">
+      <DependentUpon>BattleGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\GameBoard.cs">
+      <SubType>UserControl</SubType>
+      <CustomToolNamespace>BattleShipBoard</CustomToolNamespace>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\GameBoard.Designer.cs">
+      <DependentUpon>GameBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\ShipSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\ShipSelector.Designer.cs">
+      <DependentUpon>ShipSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Chat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
     <Compile Include="Extras\juegoUtils.cs" />
@@ -65,29 +84,28 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormJuego.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormJuego.Designer.cs">
-      <DependentUpon>FormJuego.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sala.cs">
+    <Compile Include="Forms\Sala.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sala.Designer.cs">
+    <Compile Include="Forms\Sala.Designer.cs">
       <DependentUpon>Sala.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extras\scktCliente.cs" />
-    <EmbeddedResource Include="Chat.resx">
+    <EmbeddedResource Include="Forms\BattleGames\BattleGame.resx">
+      <DependentUpon>BattleGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BattleGames\UserControls\GameBoard.resx">
+      <DependentUpon>GameBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BattleGames\UserControls\ShipSelector.resx">
+      <DependentUpon>ShipSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Chat.resx">
       <DependentUpon>Chat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormJuego.resx">
-      <DependentUpon>FormJuego.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -99,7 +117,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Sala.resx">
+    <EmbeddedResource Include="Forms\Sala.resx">
       <DependentUpon>Sala.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
