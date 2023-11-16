@@ -1,16 +1,7 @@
 ﻿using BLL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TrabajoPractico.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TrabajoPractico
 {
@@ -75,8 +66,7 @@ namespace TrabajoPractico
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var fj = new Forms.BattleGameForm();
+            var fj = new Forms.BattleGames.BSG();
             fj.Show();
         }
     }

@@ -41,6 +41,32 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label1.Cursor = System.Windows.Forms.Cursors.Default;
+            label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            label1.Location = new System.Drawing.Point(143, 26);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(188, 27);
+            label1.TabIndex = 3;
+            label1.Text = "Partidas disponibles";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label2.Cursor = System.Windows.Forms.Cursors.Default;
+            label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            label2.Location = new System.Drawing.Point(580, 26);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(21, 27);
+            label2.TabIndex = 6;
+            label2.Text = "-";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(69, 282);
@@ -69,19 +95,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(478, 222);
             this.dataGridView1.TabIndex = 2;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            label1.Cursor = System.Windows.Forms.Cursors.Default;
-            label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            label1.Location = new System.Drawing.Point(143, 26);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(188, 27);
-            label1.TabIndex = 3;
-            label1.Text = "Partidas disponibles";
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(69, 340);
@@ -101,19 +114,6 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(212, 375);
             this.dataGridView2.TabIndex = 5;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            label2.Cursor = System.Windows.Forms.Cursors.Default;
-            label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            label2.Location = new System.Drawing.Point(580, 26);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(175, 27);
-            label2.TabIndex = 6;
-            label2.Text = "Mejores jugadores";
             // 
             // Sala
             // 

@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoPractico.Forms.BattleGame;
 
@@ -14,7 +8,7 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
     public partial class ShipSelector : UserControl
     {
         public static event EventHandler<EventSelector> ShipSelected;
-        public static event Action AllShipsInPosition;
+        public static event EventHandler<EventArgs> AllShipsInPosition;
         public Rotation rotation = 0;
         List<Ships> shipsAvailable;
         public ShipSelector()
@@ -35,13 +29,13 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
         private void deleteShipUsed(Ships obj)
         {
             comboBox1.DataSource = null;
-            shipsAvailable.Remove(obj); 
+            shipsAvailable.Remove(obj);
             comboBox1.DataSource = shipsAvailable;
 
-            if(comboBox1.Items.Count == 0)
+            if (comboBox1.Items.Count == 0)
             {
                 this.Hide();
-                AllShipsInPosition.Invoke();
+                AllShipsInPosition?.Invoke(this, new EventArgs());
             }
         }
 
@@ -80,11 +74,12 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
         right = 3,
     }
 
-    public class EventSelector: EventArgs
+    public class EventSelector : EventArgs
     {
         public Ships state;
         public Rotation rotation;
-        public EventSelector(Ships ship, Rotation rotate) { 
+        public EventSelector(Ships ship, Rotation rotate)
+        {
             this.state = ship;
             this.rotation = rotate;
         }

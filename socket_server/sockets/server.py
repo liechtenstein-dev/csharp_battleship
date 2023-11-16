@@ -6,6 +6,16 @@ class ManageServer:
     self.server = socket_s.SocketServer(port)
     self.server.start_server()
 
+class ClientServerResponse():
+    def __init__(self,adress,port):
+      self.socket = socket_c.SocketClientTest(adress, port)
+
+    def normal_send(self, data):
+      return self.socket.send_data(data)
+
+    def recieve_data(self) -> str:
+      return self.socket.rec_data()
+
 class TestClient:
   def __init__(self):
     self.socket = socket_c.SocketClientTest("127.0.0.1", 5050)
@@ -16,3 +26,6 @@ class TestClient:
   
   def normal_send(self, data):
     return self.socket.send_data(data)
+
+  def recieve_data(self) -> str:
+    return self.socket.rec_data()

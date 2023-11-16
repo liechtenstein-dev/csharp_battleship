@@ -1,5 +1,12 @@
 import sockets as sock
 
-cliente = sock.TestClient()
-a= cliente.normal_send("0000#C[255]")
-print(a)
+socks = sock.TestClient()
+socks.normal_send("[10,11]")
+print("info sended")
+checkhit = socks.recieve_data()
+print(checkhit)
+hitserver = socks.recieve_data()
+print(hitserver)
+respond = "gg".encode("utf-8")
+socks.normal_send(respond)
+print("gg")

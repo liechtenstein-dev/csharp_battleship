@@ -52,11 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\BattleGames\BattleGame.cs">
+    <Compile Include="Forms\BattleGames\BSG.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BattleGames\BattleGame.Designer.cs">
-      <DependentUpon>BattleGame.cs</DependentUpon>
+    <Compile Include="Forms\BattleGames\BSG.Designer.cs">
+      <DependentUpon>BSG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BattleGames\CLSocket\SocketCliente.cs" />
+    <Compile Include="Forms\BattleGames\UserControls\AttackBoard.cs">
+      <CustomToolNamespace>AttackBoard</CustomToolNamespace>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\AttackBoard.Designer.cs">
+      <DependentUpon>AttackBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\ButtonAttackAction.cs">
+      <SubType>UserControl</SubType>
+      <CustomToolNamespace>ButtonAttack</CustomToolNamespace>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\ButtonAttackAction.Designer.cs">
+      <DependentUpon>ButtonAttackAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BattleGames\UserControls\Game.cs" />
+    <Compile Include="Forms\BattleGames\UserControls\Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BattleGames\UserControls\GameBoard.cs">
       <SubType>UserControl</SubType>
@@ -67,6 +85,7 @@
     </Compile>
     <Compile Include="Forms\BattleGames\UserControls\ShipSelector.cs">
       <SubType>UserControl</SubType>
+      <CustomToolNamespace>ShipSelector</CustomToolNamespace>
     </Compile>
     <Compile Include="Forms\BattleGames\UserControls\ShipSelector.Designer.cs">
       <DependentUpon>ShipSelector.cs</DependentUpon>
@@ -92,8 +111,17 @@
     <Compile Include="Forms\Sala.Designer.cs">
       <DependentUpon>Sala.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\BattleGames\BattleGame.resx">
-      <DependentUpon>BattleGame.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BattleGames\BSG.resx">
+      <DependentUpon>BSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BattleGames\UserControls\AttackBoard.resx">
+      <DependentUpon>AttackBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BattleGames\UserControls\ButtonAttackAction.resx">
+      <DependentUpon>ButtonAttackAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BattleGames\UserControls\Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BattleGames\UserControls\GameBoard.resx">
       <DependentUpon>GameBoard.cs</DependentUpon>

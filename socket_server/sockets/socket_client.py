@@ -7,5 +7,8 @@ class SocketClientTest:
         
     def send_data(self, data) -> str:
         self.sock.sendall(data.encode("utf-8"))
+        return data
+
+    def rec_data(self) -> str:
         data = (self.sock.recv(1024)).decode("utf-8")
         return data
