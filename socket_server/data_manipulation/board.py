@@ -10,7 +10,6 @@ class Board:
             print(' '.join(row))
     # Función para verificar si una coordenada es agua o un barco
     def check_coordinate(self, row, col):
-        print(self.board[row][col])
         if self.board[row][col] == 'O':
             self.board[row][col] = 'A'  # agua
             return 'agua'
