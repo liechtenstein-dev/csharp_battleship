@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoPractico.Forms.BattleGame;
 using TrabajoPractico.Forms.BattleGames.CLSocket;
 using TrabajoPractico.Forms.BattleGames.UserControls;
 
 namespace TrabajoPractico.Forms.BattleGames.UserControls
 {
+
+    // TODO: Cambiale el nombre SRStatus
     public class ServerResponseEvent : EventArgs
     {
         public string response;
@@ -19,12 +23,27 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
             this.response = r;
         }    
     }
+    
+    
+    public class SRAttack : EventArgs
+    {
+        public int x;
+        public int y;
+
+        public SRAttack(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     public partial class Game : UserControl
     {
         private Button[,] boardButtons = new Button[15, 15]; // Arreglo para almacenar los botones del tablero
         public event EventHandler winsGame;
-        public static event EventHandler<ServerResponseEvent> serverResponseEvent; 
-        
+        public static event EventHandler<ServerResponseEvent> serverResponseEvent;
+        public static event EventHandler<SRAttack> srAttackEvent;
+
         private SocketCliente cliente;
         public Game()
         {
@@ -35,6 +54,12 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
             ShipSelector.ShipSelected += ShipSelector_ShipSelected;
             ShipSelector.AllShipsInPosition += ShipSelector_AllShipsInPosition;
             AttackBoard.shipAttackedPosition += AttackBoard_shipAttackedPosition;
+            GameBoard.shipGotHit += GameBoard_shipGotHit;
+        }
+
+        private void GameBoard_shipGotHit(string obj)
+        {
+            cliente.SendMessageToServer(obj);
         }
 
         private void AttackBoard_shipAttackedPosition(object sender, EventArgsPosition e)
@@ -60,6 +85,12 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
 
             if (disparo)
             {
+                string r = Regex.Replace(e, @"[\[\]{}]", "");
+                var hittingCoords = r.Split(',');
+                int x = int.Parse(hittingCoords[0]);
+                int y = int.Parse(hittingCoords[1]);
+                srAttackEvent?.Invoke(this, new SRAttack(x, y));
+                
                 Console.WriteLine($"Disparo del sv: {e}");
                 return;
             }

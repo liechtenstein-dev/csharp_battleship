@@ -14,7 +14,7 @@ namespace TrabajoPractico.Forms.BattleGame
 
         public Button[,] boardButtons = new Button[15, 15]; // Arreglo para almacenar los botones del tablero
         public static event Action<Ships> shipCreated;
-
+        public static event Action<string> shipGotHit;
         public GameBoard()
         {
             InitializeComponent();
@@ -43,6 +43,26 @@ namespace TrabajoPractico.Forms.BattleGame
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             #endregion
             ShipSelector.ShipSelected += ShipSelector_ShipSelected;
+            Game.srAttackEvent += gettingCoordsAttacker;
+        }
+
+        private void gettingCoordsAttacker(object sender, SRAttack e)
+        {
+            if(sender != null)
+            {
+                if(boardButtons[e.x, e.y].Enabled)
+                {
+                    boardButtons[e.x, e.y].BackColor = Color.RoyalBlue;
+                    shipGotHit?.Invoke("agua");
+                } else
+                {
+                    boardButtons[e.x, e.y].BackColor = Color.Crimson;
+                    shipGotHit?.Invoke("tocado");
+                }
+            }
+
+
+
         }
 
         #region Ship selected logic

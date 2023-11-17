@@ -28,14 +28,15 @@ class SocketServer:
                 if self.state:
                     self.close_all()
                     break
-        except KeyboardInterrupt:
+        except KeyboardInterrupt as e:
             print("Server stopped by Ctrl+C")
             self.close_all()
+            raise e
         finally:
             if self.sock:
                 self.sock.close()
 
-    def handle_connection(self, client_socket, address):
+    def handle_connection(self, client_socket: socket, address):
         try:
             while True:
                 data = client_socket.recv(1024).decode("utf-8").strip()
@@ -52,16 +53,20 @@ class SocketServer:
                 if check_hit_str == "gg":
                     self.destroy_socket_server(client_socket, "gg")
 
-                #reply_play_col, reply_play_row = self.attack_algorithm.hunting_attacks()
-                #reply_play_encoded = f"[{reply_play_col},{reply_play_row}]".encode("utf-8")
-                #client_socket.sendall(reply_play_encoded)
-                
-                #result_data = client_socket.recv(1024).decode("utf-8").strip()
-                #self.attack_algorithm.return_setter(result_data)
 
-               # if result_data == "gg":
-               #     self.destroy_socket_server(client_socket, "Winner")
-               #     break
+                reply_play_col, reply_play_row = self.attack_algorithm.hunting_attacks(self.server_board.board)
+                print("col: " + str(reply_play_col) +"  row: " + str(reply_play_row))
+                reply_play_encoded = f"[{reply_play_col},{reply_play_row}]".encode("utf-8")
+                client_socket.sendall(reply_play_encoded)
+                
+                result_data = (client_socket.recv(1024).decode("utf-8")).strip()
+                self.attack_algorithm.return_setter(result_data)
+
+
+
+                if result_data == "gg":
+                    self.destroy_socket_server(client_socket, "Winner")
+                    break
         except Exception as e:
             if "10054" in str(e):
                 print("Connection closed by remote host.")

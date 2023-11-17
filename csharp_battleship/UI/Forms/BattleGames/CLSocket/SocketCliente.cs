@@ -32,6 +32,7 @@ namespace TrabajoPractico.Forms.BattleGames.CLSocket
 
                     string message = Encoding.UTF8.GetString(data);
                     MessageReceived?.Invoke(this, message);
+
                     clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
                 }
             }
