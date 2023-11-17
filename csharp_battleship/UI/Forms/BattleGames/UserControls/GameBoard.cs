@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using TrabajoPractico.Forms.BattleGames.UserControls;
 
@@ -11,7 +14,9 @@ namespace TrabajoPractico.Forms.BattleGame
         private bool shipCorrectlyCreated = false;
         private Rotation rotation;
         private Ships typeShip;
+        private Dictionary<int, string> shipsCreatedPos;
 
+        public static event EventHandler gameLoss;
         public Button[,] boardButtons = new Button[15, 15]; // Arreglo para almacenar los botones del tablero
         public static event Action<Ships> shipCreated;
         public static event Action<string> shipGotHit;
@@ -50,14 +55,24 @@ namespace TrabajoPractico.Forms.BattleGame
         {
             if(sender != null)
             {
-                if(boardButtons[e.x, e.y].Enabled)
+                if(boardButtons[e.x, e.y].Enabled == true)
                 {
                     boardButtons[e.x, e.y].BackColor = Color.RoyalBlue;
                     shipGotHit?.Invoke("agua");
-                } else
+                }
+                if (boardButtons[e.x, e.y].Enabled != true)
                 {
                     boardButtons[e.x, e.y].BackColor = Color.Crimson;
-                    shipGotHit?.Invoke("tocado");
+                    if (shipsCreatedPos.ContainsKey(e.x) && shipsCreatedPos.ContainsKey(e.y))
+                    {
+                        shipsCreatedPos.Remove(e.x);
+                        shipsCreatedPos.Remove(e.y);
+                    }
+                    if(shipsCreatedPos.Count() == 0)
+                    {
+                        shipGotHit?.Invoke("tocado");
+                        gameLoss?.Invoke(this, EventArgs.Empty);
+                    }
                 }
             }
 
@@ -159,13 +174,18 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row - i, col].Enabled = false;
                             boardButtons[row - i, col].BackColor = color;
+                            shipsCreatedPos.Add(row - i, "row");
+                            shipsCreatedPos.Add(col, "col");
                         }
+
                         break;
                     case Rotation.down:
                         for (int i = 0; i < (int)ship; i++)
                         {
                             boardButtons[row + i, col].Enabled = false;
                             boardButtons[row + i, col].BackColor = color;
+                            shipsCreatedPos.Add(row + i, "row");
+                            shipsCreatedPos.Add(col, "col");
                         }
                         break;
                     case Rotation.left:
@@ -173,6 +193,8 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row, col - i].Enabled = false;
                             boardButtons[row, col - i].BackColor = color;
+                            shipsCreatedPos.Add(row, "row");
+                            shipsCreatedPos.Add(col - i, "col");
                         }
                         break;
                     case Rotation.right:
@@ -180,6 +202,8 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row, col + i].Enabled = false;
                             boardButtons[row, col + i].BackColor = color;
+                            shipsCreatedPos.Add(row, "row");
+                            shipsCreatedPos.Add(col + i, "col");
                         }
                         break;
                 }

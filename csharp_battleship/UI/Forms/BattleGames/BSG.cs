@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoPractico.Forms.BattleGame;
 
 namespace TrabajoPractico.Forms.BattleGames
 {
@@ -25,6 +26,14 @@ namespace TrabajoPractico.Forms.BattleGames
             // Deshabilito el botón de maximizar 
             this.MaximizeBox = false;
             this.game1.winsGame += winsGameEvent;
+            GameBoard.gameLoss += GameBoard_gameLoss;
+        }
+
+        private void GameBoard_gameLoss(object sender, EventArgs e)
+        {
+            // frase robada de un video de un pelado que toma cereales jasdjas
+            MessageBox.Show("La vida da muchas vueltas, pero aveces se aprende a no girar");
+            this.Close();
         }
 
         private void winsGameEvent(object sender, EventArgs e)

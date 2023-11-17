@@ -12,7 +12,7 @@ namespace TrabajoPractico.Forms.BattleGames.CLSocket
     {
         private Socket clientSocket;
         private byte[] buffer = new byte[1024]; 
-        public event EventHandler<string> MessageReceived;
+        public static event EventHandler<string> MessageReceived;
         public void StartSocket()
         {
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

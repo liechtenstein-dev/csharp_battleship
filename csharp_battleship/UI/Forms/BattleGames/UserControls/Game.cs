@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using TrabajoPractico.Forms.BattleGame;
 using TrabajoPractico.Forms.BattleGames.CLSocket;
 using TrabajoPractico.Forms.BattleGames.UserControls;
+using System.Messaging;
 
 namespace TrabajoPractico.Forms.BattleGames.UserControls
 {
@@ -44,6 +45,7 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
         public static event EventHandler<ServerResponseEvent> serverResponseEvent;
         public static event EventHandler<SRAttack> srAttackEvent;
 
+
         private SocketCliente cliente;
         public Game()
         {
@@ -55,10 +57,14 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
             ShipSelector.AllShipsInPosition += ShipSelector_AllShipsInPosition;
             AttackBoard.shipAttackedPosition += AttackBoard_shipAttackedPosition;
             GameBoard.shipGotHit += GameBoard_shipGotHit;
+            SocketCliente.MessageReceived += Cliente_MessageReceived;
         }
+
+
 
         private void GameBoard_shipGotHit(string obj)
         {
+            Console.WriteLine("se manda al server si pego o no: " + obj);
             cliente.SendMessageToServer(obj);
         }
 
@@ -74,8 +80,6 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
                 if (e.y < 10)
                     y = $"0{e.y}";
                 cliente.SendMessageToServer($"[{y},{x}]");
-                cliente.MessageReceived += Cliente_MessageReceived;
-
             }
         }
 
@@ -89,8 +93,8 @@ namespace TrabajoPractico.Forms.BattleGames.UserControls
                 var hittingCoords = r.Split(',');
                 int x = int.Parse(hittingCoords[0]);
                 int y = int.Parse(hittingCoords[1]);
+                disparo = false;
                 srAttackEvent?.Invoke(this, new SRAttack(x, y));
-                
                 Console.WriteLine($"Disparo del sv: {e}");
                 return;
             }
