@@ -1,3 +1,4 @@
+import random
 class AttackAlgorithm:
     def __init__(self):
         self.hits = []  # Almacena las coordenadas de los ataques exitosos

@@ -1,13 +1,14 @@
 import socket
 import threading as threads
-import data_manipulation.logic as dm
+import data_manipulation.board as brd
+import data_manipulation.attack_algorithm as algt
 
 class SocketServer:
     def __init__(self, port=5050, connections_list=1, host="127.0.0.1"):
         self.port = port
         self.host = host
-        self.server_board = dm.Board()
-        self.attack_algorithm = dm.AttackAlgorithm()
+        self.server_board = brd.Board()
+        self.attack_algorithm = algt.AttackAlgorithm()
         self.clients_connection_list = []
         self.state = False
 
