@@ -38,7 +38,7 @@ namespace TrabajoPractico.Forms.BattleGames
 
         private void winsGameEvent(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }

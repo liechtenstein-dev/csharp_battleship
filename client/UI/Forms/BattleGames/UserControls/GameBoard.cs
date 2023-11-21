@@ -14,7 +14,7 @@ namespace TrabajoPractico.Forms.BattleGame
         private bool shipCorrectlyCreated = false;
         private Rotation rotation;
         private Ships typeShip;
-        private Dictionary<int, string> shipsCreatedPos;
+        private Dictionary<List<int>, string> shipsCreatedPos = new Dictionary<List<int>, string>();
 
         public static event EventHandler gameLoss;
         public Button[,] boardButtons = new Button[15, 15]; // Arreglo para almacenar los botones del tablero
@@ -63,10 +63,14 @@ namespace TrabajoPractico.Forms.BattleGame
                 if (boardButtons[e.x, e.y].Enabled != true)
                 {
                     boardButtons[e.x, e.y].BackColor = Color.Crimson;
-                    if (shipsCreatedPos.ContainsKey(e.x) && shipsCreatedPos.ContainsKey(e.y))
+                    List<int> aints = new List<int>()
                     {
-                        shipsCreatedPos.Remove(e.x);
-                        shipsCreatedPos.Remove(e.y);
+                        e.x,
+                        e.y
+                    };
+                    if (shipsCreatedPos.ContainsKey(aints) && shipsCreatedPos.ContainsKey(aints))
+                    {
+                        shipsCreatedPos.Remove(aints);
                     }
                     if(shipsCreatedPos.Count() == 0)
                     {
@@ -174,8 +178,12 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row - i, col].Enabled = false;
                             boardButtons[row - i, col].BackColor = color;
-                            shipsCreatedPos.Add(row - i, "row");
-                            shipsCreatedPos.Add(col, "col");
+                            List<int> aints = new List<int>(2)
+                            {
+                                row-i,
+                                col
+                            };
+                            shipsCreatedPos.Add(aints, "pos");
                         }
 
                         break;
@@ -184,8 +192,12 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row + i, col].Enabled = false;
                             boardButtons[row + i, col].BackColor = color;
-                            shipsCreatedPos.Add(row + i, "row");
-                            shipsCreatedPos.Add(col, "col");
+                            List<int> aints = new List<int>(2)
+                            {
+                                row+i,
+                                col
+                            };
+                            shipsCreatedPos.Add(aints, "pos");
                         }
                         break;
                     case Rotation.left:
@@ -193,8 +205,12 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row, col - i].Enabled = false;
                             boardButtons[row, col - i].BackColor = color;
-                            shipsCreatedPos.Add(row, "row");
-                            shipsCreatedPos.Add(col - i, "col");
+                            List<int> aints = new List<int>(2)
+                            {
+                                row,
+                                col-i
+                            };
+                            shipsCreatedPos.Add(aints, "pos");
                         }
                         break;
                     case Rotation.right:
@@ -202,8 +218,12 @@ namespace TrabajoPractico.Forms.BattleGame
                         {
                             boardButtons[row, col + i].Enabled = false;
                             boardButtons[row, col + i].BackColor = color;
-                            shipsCreatedPos.Add(row, "row");
-                            shipsCreatedPos.Add(col + i, "col");
+                            List<int> aints = new List<int>(2)
+                            {
+                                row,
+                                col+i
+                            };
+                            shipsCreatedPos.Add(aints, "pos");
                         }
                         break;
                 }
