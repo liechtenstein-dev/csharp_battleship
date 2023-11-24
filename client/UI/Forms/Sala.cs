@@ -10,15 +10,15 @@ namespace TrabajoPractico
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Sala_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            var chat = new Chat();
-            chat.Show();
+            var form = new Forms.BattleGames.BSG();
+            form.Show();
         }
     }
 }

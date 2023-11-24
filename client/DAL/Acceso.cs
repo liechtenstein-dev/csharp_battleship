@@ -52,12 +52,11 @@ namespace DAL
         {
             conn.Open();
             DataTable db = new DataTable();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataAdapter da = new SqlDataAdapter();
+            var cmd = new SqlCommand(arg, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
             try
             {
-                cmd = new SqlCommand(arg, conn);
-                cmd.CommandType = CommandType.StoredProcedure;
                 if (parameters != null && parameters.Count > 0)
                 {
                     foreach (KeyValuePair<string, object> kvp in parameters)
@@ -65,10 +64,8 @@ namespace DAL
                         cmd.Parameters.Add(new SqlParameter(kvp.Key, kvp.Value));
                     }
                 }
-                da.SelectCommand = cmd;
                 da.Fill(db);
                 return db;
-
             } catch (Exception ex)
             {
                 throw ex;

@@ -7,6 +7,7 @@ namespace TrabajoPractico
 {
     public partial class Form1 : Form
     {
+        BLLUsuario bllusuario = new BLLUsuario();
         public Form1()
         {
             InitializeComponent();
@@ -20,7 +21,7 @@ namespace TrabajoPractico
         }
         private bool VerificarButton_Click()
         {
-            string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            string emailPattern = @"^[^\s@]+@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
             string passwordPattern = @"^.{8,}$";
 
             bool emailIsValid = Regex.IsMatch(textBox1.Text, emailPattern);
@@ -42,11 +43,17 @@ namespace TrabajoPractico
                 MessageBox.Show("Hay un error en el ingreso de datos, verifique si escribio bien sus datos.");
                 return;
             }
-            var u = new UsuarioBLL(textBox1.Text, textBox2.Text);
-            u.BuscarUsuario();
-            this.Hide();
-            var newF = new Sala();
-            newF.Show();
+            bool existe = bllusuario.BuscarUsuario(textBox1.Text, textBox2.Text);
+            if (existe)
+            {
+                this.Hide();
+                var newF = new Sala();
+                newF.Show();
+            } else
+            {
+                MessageBox.Show("No existe ese usuario");
+            }
+            
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -61,13 +68,10 @@ namespace TrabajoPractico
                 MessageBox.Show("Hay un error en el ingreso de datos, verifique si escribio bien sus datos.");
                 return;
             }
-            var u = new UsuarioBLL(textBox1.Text, textBox2.Text);
-            u.RegistrarUsuario();
-        }
-        private void button6_Click(object sender, EventArgs e)
-        {
-            var fj = new Forms.BattleGames.BSG();
-            fj.Show();
+            bllusuario.RegistrarUsuario(textBox1.Text, textBox2.Text, textBox3.Text);
+            this.textBox3.Hide();
+            this.label4.Hide();
+            MessageBox.Show("Registrado exitosamente");
         }
     }
 }
